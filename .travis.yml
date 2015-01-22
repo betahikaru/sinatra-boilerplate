@@ -1,0 +1,6 @@
+anguage: ruby
+rvm:
+  - 2.2.0
+  - 2.1.1
+  - jruby-19mode
+# script: bundle exec rspec spec
