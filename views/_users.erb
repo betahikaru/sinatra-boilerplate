@@ -1,0 +1,22 @@
+<table class="table table-hover table-condensed">
+  <tr>
+    <th>User id</th>
+    <th>User name</th>
+    <th>User e-mail</th>
+  </tr>
+  <% if @users.empty? %>
+      <tr>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+  <% else %>
+    <% @users.each do |u| %>
+      <tr>
+        <td><%= u.id %></td>
+        <td><%= u.name %></td>
+        <td><%= u.email %></td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>
