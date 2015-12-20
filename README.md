@@ -2,7 +2,8 @@ sinatra-boilerplate
 ====================
 
 ```shell
-bundle instal --path vendor/bundle
+bundle install --path vendor/bundle
+sqlite3 db/store_dev.db < sql/setup.sql
 bundle exec rspec
 bundle exec rackup
 ```
