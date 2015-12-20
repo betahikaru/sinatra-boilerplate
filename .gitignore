@@ -37,3 +37,5 @@ build/
 .rvmrc
 
 
+# db and setting
+db/*.db

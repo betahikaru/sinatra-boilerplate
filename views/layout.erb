@@ -53,6 +53,11 @@
 						<span>Tab1</span>
 					</a>
 				</li>
+				<%= partial(:"_layout_tab", locals: {
+					tab_id: "navbar_button_users",
+					tab_url: "/users",
+					tab_title: "Users"
+				}) %>
 			</ul>
 		</div><!--/.nav-collapse -->
 		</div>
