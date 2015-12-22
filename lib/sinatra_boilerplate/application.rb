@@ -48,5 +48,43 @@ module SinatraBoilerplate
       erb :"users"
     end
 
+    post '/users' do
+      id = params["id"]
+      name = params["name"]
+      email = params["email"]
+      # check params
+      err_message =  check_create_user(id, name, email)
+      return err_message unless err_message.empty?
+
+      # create user
+      begin
+        user = SinatraBoilerplate::Model::User.new(id: id, name: name, email: email)
+        if user.save
+          @navbar_button_active = "navbar_button_users"
+          @title = site_title("Users")
+          @users = SinatraBoilerplate::Model::User.all
+          erb :"users"
+        else
+          "Error user.save"
+        end
+      rescue ActiveRecord::RecordNotUnique => e
+        "This ID can't use."
+      rescue => e
+        e
+      end
+    end
+
+    def check_create_user(id, name, email)
+      if id.empty?
+        "ID is required."
+      elsif name.empty?
+        "Name is required"
+      elsif email.empty?
+        "E-mail is required"
+      else
+        ""
+      end
+    end
+
   end
 end
