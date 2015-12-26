@@ -1,0 +1,34 @@
+<form action="/users/delete" method="post">
+  <input type="hidden" name="_method" value="delete" />
+  <table class="table table-hover table-condensed">
+    <tr>
+      <th>#</th>
+      <th>User id</th>
+      <th>User name</th>
+      <th>User e-mail</th>
+      <th>
+        <input type="submit" value="Delete" />
+      </th>
+    </tr>
+    <% if @users.empty? %>
+        <tr>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+    <% else %>
+      <% @users.each.with_index(1) do |u, index| %>
+        <tr>
+          <td><%= index %></td>
+          <td><%= u.id %></td>
+          <td><%= u.name %></td>
+          <td><%= u.email %></td>
+          <td>
+            <input type="checkbox" name="id[]" value="<%= u.id %>" />
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+</form>

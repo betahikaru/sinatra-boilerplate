@@ -86,5 +86,28 @@ module SinatraBoilerplate
       end
     end
 
+    get '/users/delete' do
+      @navbar_button_active = "navbar_button_users"
+      @title = site_title("Users")
+      @users = SinatraBoilerplate::Model::User.all
+      erb :"users_delete"
+    end
+
+    post '/users/delete' do
+      if params['id'].nil?
+        redirect '/users'
+        return
+      end
+      params['id'].each do |id|
+        begin
+          user = SinatraBoilerplate::Model::User.find(id)
+          user.destroy unless user.nil?
+        rescue => e
+          puts e
+        end
+      end
+      redirect '/users'
+    end
+
   end
 end
