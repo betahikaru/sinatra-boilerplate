@@ -1,5 +1,6 @@
 <table class="table table-hover table-condensed">
   <tr>
+    <th>#</th>
     <th>User id</th>
     <th>User name</th>
     <th>User e-mail</th>
@@ -9,10 +10,12 @@
         <td>-</td>
         <td>-</td>
         <td>-</td>
+        <td>-</td>
       </tr>
   <% else %>
-    <% @users.each do |u| %>
+    <% @users.each.with_index(1) do |u, index| %>
       <tr>
+        <td><%= index %></td>
         <td><%= u.id %></td>
         <td><%= u.name %></td>
         <td><%= u.email %></td>
