@@ -48,7 +48,14 @@ module SinatraBoilerplate
       erb :"users"
     end
 
-    post '/users' do
+    get '/users/new' do
+      @navbar_button_active = "navbar_button_users"
+      @title = site_title("Users")
+      @users = SinatraBoilerplate::Model::User.all
+      erb :"users_new"
+    end
+
+    post '/users/new' do
       id = params["id"]
       name = params["name"]
       email = params["email"]
@@ -63,7 +70,7 @@ module SinatraBoilerplate
           @navbar_button_active = "navbar_button_users"
           @title = site_title("Users")
           @users = SinatraBoilerplate::Model::User.all
-          erb :"users"
+          redirect '/users'
         else
           "Error user.save"
         end
