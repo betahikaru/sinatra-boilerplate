@@ -4,6 +4,7 @@ require 'sinatra/reloader'
 require 'sinatra/contrib'
 require 'sinatra/partial'
 require 'active_record'
+require 'bcrypt'
 
 require 'sinatra_boilerplate/tab1'
 require 'sinatra_boilerplate/helpers/html_helper'
@@ -29,6 +30,9 @@ module SinatraBoilerplate
     set :root, File.join(File.dirname(__FILE__), "..", "..")
     set :views, Proc.new { File.join(root, "views") }
 
+    # session
+    enable :sessions
+
     get '/' do
       @navbar_button_active = "navbar_button_home"
       @title = site_title("")
@@ -41,6 +45,7 @@ module SinatraBoilerplate
       erb :"tab1", locals: {}
     end
 
+    # Users
     get '/users' do
       @navbar_button_active = "navbar_button_users"
       @title = site_title("Users")
@@ -114,6 +119,35 @@ module SinatraBoilerplate
         end
       end
       redirect '/users'
+    end
+
+    # Session
+    get '/sessions/login' do
+      if !session[:user_id]
+        erb :"sessions/new"
+      else
+        redirect :users
+      end
+    end
+
+    post '/sessions/create' do
+      id = params['id']
+      input_password = params['password']
+      user = SinatraBoilerplate::Model::User.find(id)
+      if user && user.password == input_password
+        session[:user_id] = id
+        puts "create success : #{session[:user_id]}"
+        redirect '/'
+      else
+        puts "create failed : #{session[:user_id]}"
+        redirect :"sessions/login"
+      end
+    end
+
+    post '/sessions/destroy' do
+      puts "destroy : #{session[:user_id]}"
+      session[:user_id] = nil
+      redirect '/'
     end
 
   end

@@ -7,6 +7,7 @@ gem 'sinatra-partial', "~> 0.4.0"
 
 gem "sqlite3"
 gem "activerecord"
+gem 'bcrypt', '3.1.7'
 
 group :test, :develop do
   gem 'rake', :require => false
